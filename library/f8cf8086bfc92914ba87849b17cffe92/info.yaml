@@ -1,0 +1,128 @@
+author: Yonge, Adam and Gusmão, Gabriel S. and Fushimi, Rebecca and Medford, Andrew
+  J.
+author_list:
+- affiliation:
+  - name: School of Chemical & Biomolecular Engineering, Georgia Institute of Technology,
+      Atlanta, Georgia 30332, United States
+  family: Yonge
+  given: Adam
+- affiliation:
+  - name: School of Chemical & Biomolecular Engineering, Georgia Institute of Technology,
+      Atlanta, Georgia 30332, United States
+  family: Gusmão
+  given: Gabriel S.
+- affiliation:
+  - name: Catalysis and Transient Kinetics Group, Idaho National Laboratory, Idaho
+      Falls, Idaho 83415, United States
+  family: Fushimi
+  given: Rebecca
+- affiliation:
+  - name: School of Chemical & Biomolecular Engineering, Georgia Institute of Technology,
+      Atlanta, Georgia 30332, United States
+  family: Medford
+  given: Andrew J.
+citations:
+- unstructured: Chorkendorff, I.; Niemantsverdriet, J. W. Concepts of Modern Catalysis
+    and Kinetics; John Wiley & Sons, Ltd, 2017; Chapter 1; pp 1–21.
+- doi: 10.1016/j.cattod.2004.12.019
+- doi: 10.1016/j.ces.2011.05.050
+- doi: 10.1016/j.cej.2020.127789
+- doi: 10.1016/j.cej.2022.136920
+- doi: 10.1073/pnas.1006652108
+- doi: 10.1038/s41929-018-0167-5
+- doi: 10.1021/acscatal.9b00664
+- doi: 10.1021/acscatal.0c05173
+- doi: 10.1021/acscatal.8b01708
+- doi: 10.1111/1467-9868.00294
+- doi: 10.1021/acs.jpcc.6b01348
+- doi: 10.1021/acscatal.7b03531
+- doi: 10.1126/science.1253486
+- doi: 10.1021/acscatal.8b00201
+- doi: 10.1038/nchem.2454
+- doi: 10.1016/j.ces.2021.116534
+- doi: 10.1016/j.jcat.2011.05.019
+- doi: 10.1002/cctc.202000953
+- doi: 10.1002/cctc.202000976
+- doi: 10.1016/j.cpc.2021.107989
+- doi: 10.1021/acs.jcim.1c00637
+- doi: 10.1021/acs.jpcc.7b08089
+- author: Dumesic J. A.
+  volume-title: The Microkinetics of Heterogeneous Catalysis
+  year: '1993'
+- doi: 10.1039/b706675a
+- doi: 10.1023/A:1016686322301
+- doi: 10.1016/S0360-0564(02)45013-4
+  unstructured: Hammer, B.; Nørskov, J. K. Adv. Catal. 2000; Vol. 45, pp 71–129.
+- doi: 10.3390/catal10050583
+- doi: 10.1016/j.cattod.2022.03.015
+- doi: 10.1021/acscatal.9b04655
+- doi: 10.1016/j.jcat.2019.09.008
+- doi: 10.1021/acscatal.8b02041
+- doi: 10.1021/acscatal.1c03471
+- doi: 10.1021/acs.iecr.6b04855
+- doi: 10.1016/j.surfrep.2005.03.002
+- doi: 10.1039/C7CY00678K
+- doi: 10.1016/S0021-9517(02)00109-4
+- doi: 10.1080/01614948808078616
+- doi: 10.1016/j.cattod.2022.05.026
+- doi: 10.1016/j.jcat.2007.06.014
+- doi: 10.1016/j.jcat.2009.12.018
+- doi: 10.1021/jacs.1c03158
+- doi: 10.1016/j.cattod.2006.05.087
+- doi: 10.1016/j.cej.2021.129377
+- doi: 10.1002/aic.17776
+- doi: 10.1016/j.ces.2007.11.034
+- doi: 10.1016/j.cattod.2022.05.004
+- doi: 10.1021/jp048839e
+- doi: 10.1063/1.4812323
+- doi: 10.1016/j.commatsci.2012.10.028
+- doi: 10.1039/C8RE00345A
+- doi: 10.1016/j.compchemeng.2019.01.010
+- doi: 10.1039/C9RE00342H
+- doi: 10.1021/jp063492w
+- doi: 10.1080/00031305.1992.10475842
+- author: Cox C.
+  volume: '2'
+  volume-title: Encyclopedia of Biostatistics - Delta Method
+  year: '2005'
+- doi: 10.1016/j.apcata.2020.117914
+- doi: 10.1016/j.cattod.2007.05.009
+- doi: 10.1021/cs5003417
+- doi: 10.1021/jp9933875
+- doi: 10.1016/j.apcata.2004.01.006
+- doi: 10.1016/j.jcat.2003.10.004
+- doi: 10.1021/acscatal.1c04844
+- doi: 10.1016/j.cattod.2004.09.021
+- doi: 10.1109/TSP.2003.816880
+- doi: 10.1021/acs.iecr.8b03047
+- doi: 10.1080/00401706.1965.10490265
+- doi: 10.1016/j.compchemeng.2019.03.010
+- doi: 10.1002/wics.199
+- doi: 10.1016/j.cattod.2022.04.002
+- doi: 10.1016/j.jcp.2023.112555
+- doi: 10.1016/j.cej.2023.142089
+- author: Go J.
+  first-page: '728'
+  volume-title: Uncertainty in Artificial Intelligence
+  year: '2022'
+- doi: 10.1016/j.cej.2022.139637
+- doi: 10.1016/j.ces.2009.11.040
+- doi: 10.1016/j.ces.2013.11.050
+doc_url: https://pubs.acs.org/doi/pdf/10.1021/acs.iecr.3c03418
+doi: 10.1021/acs.iecr.3c03418
+files: []
+issue: '11'
+journal: Industrial &amp; Engineering Chemistry Research
+language: en
+month: 3
+pages: 4756--4770
+papis_id: f8cf8086bfc92914ba87849b17cffe92
+publisher: American Chemical Society (ACS)
+ref: Model_Based_Des_Yonge_2024
+time-added: 2026-05-09-17:24:36
+title: 'Model-Based Design of Experiments for Temporal Analysis of Products (TAP):
+  A Simulated Case Study in Oxidative Propane Dehydrogenation'
+type: article
+url: https://doi.org/10.1021/acs.iecr.3c03418
+volume: '63'
+year: 2024

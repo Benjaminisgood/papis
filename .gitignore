@@ -102,3 +102,8 @@ changes
 /.dir-locals.el
 /.direnv/
 /.envrc
+.DS_Store
+
+# papis library: sync metadata, ignore PDFs
+library/**/*.pdf
+library/**/*.PDF
