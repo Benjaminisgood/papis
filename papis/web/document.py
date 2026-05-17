@@ -64,6 +64,11 @@ def _doc_files_icons(files: list[str],
                 t.attr(title=os.path.basename(f))
                 t.attr(href=wp.file_server_path(f, libfolder, libname))
                 wh.file_icon(f)
+            with t.a():
+                t.attr(style="font-size: 0.9em; margin-left: 2px;")
+                t.attr(title=f"Open {os.path.basename(f)} in system viewer")
+                t.attr(href=wp.file_open_path(f, libfolder, libname))
+                wh.icon("external-link-alt")
 
     return result
 

@@ -16,6 +16,7 @@ import click
 import papis.cli
 import papis.config
 import papis.logging
+import papis.utils
 
 if TYPE_CHECKING:
     from papis.document import Document
@@ -386,6 +387,21 @@ class PapisRequestHandler(http.server.BaseHTTPRequestHandler):
         else:
             raise FileNotFoundError(f"File '{path}' does not exist")
 
+    def open_local_file(self, libname: str, localpath: str) -> None:
+        libfolder = papis.config.get_lib_from_name(libname).paths[0]
+        path = os.path.join(libfolder, localpath)
+        if os.path.exists(path):
+            papis.utils.open_file(path, wait=False)
+            self._ok()
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(
+                b"<html><body><p>Opening file in system viewer...</p>"
+                b"<script>window.close()</script></body></html>"
+            )
+        else:
+            raise FileNotFoundError(f"File '{path}' does not exist")
+
     def process_routes(self,
                        routes: list[tuple[str, Any]]) -> None:
         """
@@ -573,6 +589,8 @@ class PapisRequestHandler(http.server.BaseHTTPRequestHandler):
                 self.page_tags_refresh),
             ("^/library/([^/]+)/file/(.+)$",
                 self.send_local_document_file),
+            ("^/library/([^/]+)/open-file/(.+)$",
+                self.open_local_file),
             ("^/library/([^/]+)/clear_cache$",
                 self.clear_cache),
             ("^/static/([^?]*)(.*)$",

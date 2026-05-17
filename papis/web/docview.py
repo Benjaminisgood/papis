@@ -64,6 +64,10 @@ def html(libname: str, doc: Document) -> t.html_tag:
                                                           libfolder,
                                                           libname)):
                             wh.file_icon(fpath)
+                        with t.a(href=wp.file_open_path(fpath,
+                                                        libfolder,
+                                                        libname)):
+                            wh.icon("external-link-alt")
                 for error in errors:
                     with wh.alert(t.div, "danger"):
                         wh.icon_span("stethoscope", error.msg)
@@ -156,7 +160,9 @@ def html(libname: str, doc: Document) -> t.html_tag:
                                    cls="tab-pane fade"):
 
                             if fpath.endswith("pdf"):
-                                papis.web.pdfjs.widget(unquoted_file_path)
+                                papis.web.pdfjs.widget(unquoted_file_path,
+                                                       libname=libname,
+                                                       libfolder=libfolder)
 
                             if fpath.endswith("djvu"):
                                 papis.web.djvujs.widget(unquoted_file_path)

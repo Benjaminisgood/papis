@@ -6,6 +6,7 @@ import urllib.parse
 import dominate.tags as t
 
 import papis.web.html as wh
+import papis.web.paths as wp
 import papis.web.static
 
 PDFJS_URL = ("https://github.com/mozilla/pdf.js/releases/download/"
@@ -13,13 +14,17 @@ PDFJS_URL = ("https://github.com/mozilla/pdf.js/releases/download/"
 VIEWER_PATH = "pdfjs/web/viewer.html"
 
 
-def widget(unquoted_file_path: str) -> None:
+def widget(unquoted_file_path: str,
+           libname: str = "",
+           libfolder: str = "") -> None:
     """
     Widget for pdf files.
     """
 
     file_path = urllib.parse.quote(unquoted_file_path, safe="")
     viewer_path = (f"/static/{VIEWER_PATH}?file={file_path}")
+    open_path = wp.file_open_path(unquoted_file_path, libfolder, libname) \
+        if libname and libfolder else unquoted_file_path
 
     with wh.flex("center"):
         with t.div(cls="btn-group", role="group"):
@@ -27,6 +32,10 @@ def widget(unquoted_file_path: str) -> None:
                      cls="btn btn-outline-success",
                      target="_blank"):
                 wh.icon_span("square-arrow-up-right", "Open in new window")
+            with t.a(href=open_path,
+                     cls="btn btn-outline-success",
+                     target="_blank"):
+                wh.icon_span("laptop", "Open in system viewer")
             with t.a(href=unquoted_file_path,
                      cls="btn btn-outline-success",
                      target="_blank"):

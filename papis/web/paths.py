@@ -95,3 +95,14 @@ def file_server_path(localpath: str,
     return ("/library/{libname}/file/{0}"
             .format(localpath.replace(libfolder + "/", ""),
                     libname=libname))
+
+
+def file_open_path(localpath: str,
+                   libfolder: str,
+                   libname: str) -> str:
+    """
+    Path for opening a file locally using the system opener.
+    """
+    return ("/library/{libname}/open-file/{0}"
+            .format(localpath.replace(libfolder + "/", ""),
+                    libname=libname))
