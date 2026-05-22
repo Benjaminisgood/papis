@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 from typing import Any
 
 from papis.importer import Importer
@@ -13,11 +14,19 @@ class DOIImporter(Importer):
         super().__init__(name="doi", uri=uri)
         self.doi = doi
 
+    # DOI 正则表达式：匹配标准 DOI 格式 (如 10.1000/xyz123)
+    _DOI_REGEX = re.compile(r"^10\.\d{4,}/[^\s]+$")
+
     @classmethod
     def match(cls, uri: str) -> DOIImporter | None:
         from doi import validate_doi
 
         from papis.crossref import DOI_ORG_URL
+
+        # 先检查 URI 是否看起来像 DOI 格式，避免将本地文件路径当作 DOI 验证
+        # DOI 格式：10.前缀/后缀，例如 10.1000/xyz123
+        if not cls._DOI_REGEX.match(uri):
+            return None
 
         try:
             validate_doi(uri)

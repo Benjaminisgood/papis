@@ -107,3 +107,4 @@ changes
 # papis library: sync metadata, ignore PDFs
 library/**/*.pdf
 library/**/*.PDF
+library/
