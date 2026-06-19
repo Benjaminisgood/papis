@@ -73,7 +73,7 @@ settings: dict[str, Any] = {
     "ref-word-separator": "_",
     "library-header-format": _f(
         "<ansired>{library[name]}</ansired>"
-        " <ansiblue>{library[paths]}</ansiblue>"
+        " <ansiblue>{library[dir]}</ansiblue>"
     ),
     "document-field-types": [
         "abstract:str",
@@ -154,7 +154,8 @@ settings: dict[str, Any] = {
     "notes-template": "",
 
     # doctor
-    "doctor-default-checks": ["files", "biblatex-required-keys", "bibtex-type", "refs"],
+    "doctor-default-checks": ["files", "biblatex-required-keys", "bibtex-type", "refs",
+                              "empty-fields"],
     "doctor-default-checks-extend": [],
     "doctor-keys-missing-keys": ["title", "author", "author_list", "ref"],
     "doctor-keys-missing-keys-extend": [],

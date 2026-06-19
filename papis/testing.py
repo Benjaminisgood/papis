@@ -456,7 +456,7 @@ class TemporaryLibrary(TemporaryConfiguration):
 
         # initialize library
         from papis.library import Library
-        lib = Library(self.libname, [self.libdir])
+        lib = Library(self.libname, self.libdir)
 
         import papis.config
         papis.config.set("default-library", self.libname)
@@ -636,7 +636,7 @@ class ResourceCache:
                 raise ValueError(f"Unknown file extension: '{ext}'")
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(autouse=True)  # noqa: RUF076
 def _doctest_tmp_config(request: SubRequest) -> Iterator[None]:
     """A fixture for doctests to ensure that they run in a clean environment.
 
