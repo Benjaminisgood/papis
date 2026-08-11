@@ -16,7 +16,7 @@ DOCTOR_RESOURCES = os.path.join(os.path.dirname(__file__), "resources")
 
 
 def test_files_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import files_check
+    from papis.doctor import files_check
 
     with tempfile.NamedTemporaryFile("w", encoding="utf-8") as tmp:
         folder = os.path.dirname(tmp.name)
@@ -39,7 +39,7 @@ def test_files_check(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_keys_missing_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import keys_missing_check
+    from papis.doctor import keys_missing_check
 
     # check extend functionality
     papis.config.set("doctor-keys-missing-keys",
@@ -58,7 +58,7 @@ def test_keys_missing_check(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_keys_missing_check_authors(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import keys_missing_check
+    from papis.doctor import keys_missing_check
 
     papis.config.set("doctor-keys-missing-keys", ["author_list", "author"])
     full_doc = papis.document.from_data(
@@ -99,7 +99,7 @@ def test_keys_missing_check_authors(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_refs_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import refs_check
+    from papis.doctor import refs_check
 
     doc = papis.document.from_data({
         "title": "DNA sequencing with chain-terminating inhibitors",
@@ -131,7 +131,7 @@ def test_refs_check(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_duplicated_keys_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import duplicated_keys_check
+    from papis.doctor import duplicated_keys_check
 
     # check extend functionality
     papis.config.set("doctor-duplicated-keys-keys-extend", ["year"])
@@ -152,7 +152,7 @@ def test_duplicated_keys_check(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_duplicated_values_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import duplicated_values_check
+    from papis.doctor import duplicated_values_check
 
     doc = papis.document.from_data({
         "files": ["a.pdf"],
@@ -190,7 +190,7 @@ def test_duplicated_values_check(tmp_config: TemporaryConfiguration) -> None:
 
 def test_bibtex_type_check(tmp_config: TemporaryConfiguration) -> None:
     import papis.bibtex
-    from papis.commands.doctor import bibtex_type_check
+    from papis.doctor import bibtex_type_check
 
     doc = papis.document.from_data({
         "title": "DNA sequencing with chain-terminating inhibitors",
@@ -220,7 +220,7 @@ def test_bibtex_type_check(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_field_type_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import field_type_check
+    from papis.doctor import field_type_check
 
     doc = papis.document.from_data({
         "author_list": [{"given": "F.", "family": "Sanger"}],
@@ -290,7 +290,7 @@ def test_field_type_check(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_html_codes_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import html_codes_check
+    from papis.doctor import html_codes_check
 
     doc = papis.document.from_data({
         "title": "DNA sequencing with chain-terminating inhibitors",
@@ -323,7 +323,7 @@ def test_html_codes_check(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_html_tags_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import html_tags_check
+    from papis.doctor import html_tags_check
 
     doc = papis.document.from_data({
         "title": "DNA sequencing with chain-terminating inhibitors",
@@ -376,7 +376,7 @@ def test_html_tags_check(tmp_config: TemporaryConfiguration) -> None:
     ])
 def test_html_tags_check_jats(tmp_config: TemporaryConfiguration,
                               basename: str) -> None:
-    from papis.commands.doctor import html_tags_check
+    from papis.doctor import html_tags_check
 
     with open(os.path.join(DOCTOR_RESOURCES, f"{basename}.xml"),
               encoding="utf-8") as f:
@@ -398,7 +398,7 @@ def test_html_tags_check_jats(tmp_config: TemporaryConfiguration,
 
 
 def test_biblatex_issue_to_number(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import biblatex_key_convert_check
+    from papis.doctor import biblatex_key_convert_check
 
     doc = papis.document.from_data({
         "author": "Sanger, F. and Nicklen, S. and Coulson, A. R.",
@@ -407,7 +407,7 @@ def test_biblatex_issue_to_number(tmp_config: TemporaryConfiguration) -> None:
         "number": "0",
         })
 
-    for value in (1, "3", "12", "No. 3", "1–2", "S1", "C2",  # noqa: RUF001
+    for value in (1, "3", "12", "No. 3", "1–2", "S1", "C2",  # ruff:ignore[ambiguous-unicode-character-string]
                   "4B", "4es", "A", "B", "A-1", "Suppl. 3"):
         del doc["number"]
         doc["issue"] = value
@@ -422,7 +422,9 @@ def test_biblatex_issue_to_number(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_string_cleaner_author_regex(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import _dotify_initials as dotify  # noqa: PLC2701
+    from papis.doctor import (
+        _dotify_initials as dotify,  # ruff:ignore[import-private-name]
+    )
 
     # basic ASCII
     assert dotify("F") == "F."
@@ -443,16 +445,16 @@ def test_string_cleaner_author_regex(tmp_config: TemporaryConfiguration) -> None
     assert dotify("Ñ Rodríguez") == "Ñ. Rodríguez"
 
     # cyrillic initials
-    assert dotify("А.С. Пушкин") == "А. С. Пушкин"  # noqa: RUF001
+    assert dotify("А.С. Пушкин") == "А. С. Пушкин"  # ruff:ignore[ambiguous-unicode-character-string]
     assert dotify("Л Толстой") == "Л. Толстой"
-    assert dotify("Ф.М. Достоевский") == "Ф. М. Достоевский"  # noqa: RUF001
+    assert dotify("Ф.М. Достоевский") == "Ф. М. Достоевский"  # ruff:ignore[ambiguous-unicode-character-string]
 
     # greek initials
-    assert dotify("Α.Β. Γεωργίου") == "Α. Β. Γεωργίου"  # noqa: RUF001
+    assert dotify("Α.Β. Γεωργίου") == "Α. Β. Γεωργίου"  # ruff:ignore[ambiguous-unicode-character-string]
 
     # mixed scripts (transliterated contexts)
     assert dotify("É.A. Müller") == "É. A. Müller"
-    assert dotify("Ç Yılmaz") == "Ç. Yılmaz"  # noqa: RUF001
+    assert dotify("Ç Yılmaz") == "Ç. Yılmaz"  # ruff:ignore[ambiguous-unicode-character-string]
     assert dotify("Ł.Ś. Kowalski") == "Ł. Ś. Kowalski"
 
     # mixed case
@@ -467,7 +469,7 @@ def test_string_cleaner_author_regex(tmp_config: TemporaryConfiguration) -> None
 
 
 def test_string_cleaner(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import string_cleaner_check
+    from papis.doctor import string_cleaner_check
 
     doc = papis.document.from_data({
         "author": "Sanger, F. and Nicklen, S. and Coulson, A. R.",
@@ -476,7 +478,7 @@ def test_string_cleaner(tmp_config: TemporaryConfiguration) -> None:
             "A new method for determining nucleotide sequences in DNA is described. "
             "It is similar to the “plus and minus” method [Sanger, F. & Coulson, "
             "A. R. (1975) J. Mol. Biol. 94, 441-448] but makes use of the "
-            "2′,3′-dideoxy and arabinonucleoside analogues of the normal "  # noqa: RUF001
+            "2′,3′-dideoxy and arabinonucleoside analogues of the normal "  # ruff:ignore[ambiguous-unicode-character-string]
             "deoxynucleoside triphosphates, which act as specific chain-terminating "
             "inhibitors of DNA polymerase. The technique has been applied to the "
             "DNA of bacteriophage ϕX174 and is more rapid and more accurate than "
@@ -563,7 +565,7 @@ def test_string_cleaner(tmp_config: TemporaryConfiguration) -> None:
 
 
 def test_string_cleaner_missing_author(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import string_cleaner_check
+    from papis.doctor import string_cleaner_check
 
     doc = papis.document.from_data({
         "author": "Caravaggio and M Merisi da Caravaggio",
@@ -583,7 +585,7 @@ def test_string_cleaner_missing_author(tmp_config: TemporaryConfiguration) -> No
 
 
 def test_empty_fields_check(tmp_config: TemporaryConfiguration) -> None:
-    from papis.commands.doctor import empty_fields_check
+    from papis.doctor import empty_fields_check
 
     # check: no empty fields
     doc = papis.document.from_data({

@@ -57,10 +57,45 @@ papis open 'title:^Quantum'
 Note that this new query syntax still uses the `match-format` configuration setting
 for free-form terms in the query (i.e. ones not using a `key:value` format).
 
+### Major: Improve `mv` command ([#1104](https://github.com/papis/papis/pull/1104))
+
+The `mv` command has been completely rewritten with many new features. It now
+works similarly to the Unix `mv` command for moving document folders: if the
+target folder already exists, the document's folder is moved *into* it (e.g.
+`papis mv --to existing-folder query` places the document at
+`existing-folder/<doc-folder>`); if the target does not exist, the document is
+renamed to that name. When no target is given, it defaults to the
+`add-folder-name` pattern, which means `papis mv query` now does
+everything that `papis rename` used to do.
+
+The new `--to` flag accepts formatting patterns (e.g.
+`papis mv --to "{doc[year]}" query`). The command now also allows moving documents
+between libraries by specifying a target library.
+
+The new command performs pre-flight checks on all planned moves before touching
+any files. Issues such as duplicate target paths, nesting a document inside
+another document's folder, or missing source folders are warned about upfront. The
+user can abort, skip problematic moves, or fix collisions interactively. A new
+`--batch` flag allows skipping all interactive prompts.
+
 ## Other noteworthy features
 
 - Remove undocumented `dirs` option (only allow one `dir` per library).
   ([#1182](https://github.com/papis/papis/pull/1182)).
+- Derive `author_list` from a flat `author` when creating a new document
+  (e.g. `papis add --set author ...`), so formats using
+  `{doc[author_list][0][family]}` work without a manual `papis doctor` pass
+  ([#1202](https://github.com/papis/papis/issues/1202)).
+
+## Bug Fixes
+
+- Fix crash in `papis add` when a given file path contains spaces (the DOI
+  importer no longer tries to resolve local paths on doi.org)
+  ([#1201](https://github.com/papis/papis/issues/1201)).
+- The YAML exporter now starts each document with an explicit `---` marker, so
+  that `papis export --format yaml --append` produces a valid multi-document
+  file instead of merging the documents together
+  ([#1038](https://github.com/papis/papis/issues/1038)).
 
 # VERSION v0.15.0 (February 8th, 2026)
 

@@ -11,6 +11,7 @@ import papis.logging
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Sequence
+    from pathlib import Path
     from typing import Literal
 
     from papis.strings import AnyString
@@ -578,6 +579,19 @@ def from_folder(folder_path: str) -> Document:
     return Document(folder=folder_path)
 
 
+def is_document_folder(path: Path) -> bool:
+    """Check whether *path* is an existing document folder.
+
+    A folder is considered a document folder if it contains an info file
+    (see :confval:`info-name`).
+
+    :param path: absolute path to a folder on the filesystem.
+    :returns: *True* if the folder contains a document info file.
+    """
+    info_name = papis.config.getstring("info-name")
+    return path.joinpath(info_name).exists()
+
+
 def to_json(document: Document) -> str:
     """Export the document to JSON.
 
@@ -773,6 +787,12 @@ def new(
     db = get_database()
     db.maybe_compute_id(doc)
 
+    # Derive the structured author list if only a flat author was given
+    # (e.g. `papis add --set author ...`), so that formats using
+    # `author_list` (ref-format, add-folder-name, ...) work below
+    if "author" in doc and "author_list" not in doc:
+        doc["author_list"] = split_authors_name(doc["author"])
+
     # Create a BibTeX reference if missing
     if "ref" not in doc:
         from papis.bibtex import create_reference
@@ -784,7 +804,7 @@ def new(
 
     # Run auto-doctor if requested
     if auto_doctor:
-        from papis.commands.doctor import fix_errors
+        from papis.doctor import fix_errors
 
         logger.info("Running doctor auto-fixers on document: '%s'.",
                     describe(doc))
@@ -809,7 +829,8 @@ def new(
 
         document_file_list.append(out_file_name)
 
-    doc["files"] = document_file_list
+    if document_file_list:
+        doc["files"] = document_file_list
     doc.save()
 
     return doc

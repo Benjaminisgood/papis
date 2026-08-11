@@ -402,7 +402,7 @@ def run(
     [document.pop(k) for k in to_drop]
 
     if auto_doctor:
-        from papis.commands.doctor import fix_errors
+        from papis.doctor import fix_errors
 
         logger.info(
             "Running doctor auto-fixers on document: '%s'.", describe(document),
@@ -414,12 +414,16 @@ def run(
     save_doc(document)
 
     if git:
-        from papis.git import add_and_commit_resource
-        add_and_commit_resource(
-            folder,
-            info,
-            f"Update information for '{describe(document)}'",
-        )
+        from papis.git import GitError, add_and_commit as git_add_and_commit
+
+        try:
+            git_add_and_commit(
+                folder,
+                info,
+                f"Update information for '{describe(document)}'",
+            )
+        except GitError as exc:
+            logger.error("%s", exc)
 
 
 @click.command("update")

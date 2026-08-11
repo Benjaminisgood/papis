@@ -104,7 +104,7 @@ PAPIS_TEST_DOCUMENTS = [
         "journal": "Proceedings of the London Mathematical Society",
         "note": "First turing machine paper foundation of cs",
         "pages": "230--265",
-        "title": "On Computable Numbers with an Application to the Entscheidungsproblem",           # noqa: E501
+        "title": "On Computable Numbers with an Application to the Entscheidungsproblem",           # ruff:ignore[line-too-long]
         "url": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1112%2Fplms%2Fs2-42.1.230",
         "volume": "s2-42",
         "year": 1937,
@@ -636,7 +636,7 @@ class ResourceCache:
                 raise ValueError(f"Unknown file extension: '{ext}'")
 
 
-@pytest.fixture(autouse=True)  # noqa: RUF076
+@pytest.fixture(autouse=True)
 def _doctest_tmp_config(request: SubRequest) -> Iterator[None]:
     """A fixture for doctests to ensure that they run in a clean environment.
 
